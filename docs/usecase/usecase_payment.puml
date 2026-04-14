@@ -1,0 +1,22 @@
+@startuml
+title 결제 유스케이스 (주문 기반 결제 처리)
+
+actor "회원" as Member
+actor "결제 게이트웨이" as PG
+
+rectangle "코드 마켓 시스템" {
+'사용자 시나리오 (user_scenario.md 파일)의 기능별 시나리오 번호와 해당 다이어그램의 번호는 매핑되어 있습니다
+  usecase "6-1-5.결제 인증 화면 진입" as UC_EnterPaymentForm
+  usecase "6-1-6.결제 정보 입력" as UC_WritePaymentInformation
+  usecase "6-1-7.최종 결제 요청 진행" as UC_RequestPayment
+}
+
+Member --> UC_EnterPaymentForm
+Member --> UC_RequestPayment
+
+UC_EnterPaymentForm ..> UC_WritePaymentInformation : <<include>>
+UC_RequestPayment ..> UC_WritePaymentInformation : <<extend>>
+UC_RequestPayment -->  PG : <<PG 승인 요청>>
+
+@enduml
+
