@@ -17,6 +17,15 @@ public class Member {
     protected Member() {
     }
 
+    private Member(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public static Member createForSignUp(String email, String encryptedPassword) {
+        return new Member(email, encryptedPassword);
+    }
+
     public Long getId() {
         return id;
     }

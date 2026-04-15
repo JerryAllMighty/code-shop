@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
     public Member signUp(SignUpRequestDto signUpRequestDto) {
         String email = signUpRequestDto.getEmail();
         String password = signUpRequestDto.getPassword();
-        Member member = Member.createMemberWhenSignUp(email, passwordEncoder.encode(password));
+        Member member = Member.createForSignUp(email, passwordEncoder.encode(password));
         return memberRepository.save(member);
     }
 }
