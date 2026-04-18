@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `member` (
-                          `member_id` bigint NOT NULL AUTO_INCREMENT,
+                          `id` bigint NOT NULL AUTO_INCREMENT,
                           `email` varchar(255) NOT NULL,
                           `password` varchar(80) NOT NULL,
                           PRIMARY KEY (`member_id`),
