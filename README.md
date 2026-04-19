@@ -34,3 +34,11 @@ docs 폴더 아래에서 관리하고 있습니다.
 # 커밋 규칙
 컨벤셔널 커밋 규칙 준수   
 https://www.conventionalcommits.org/en/v1.0.0/
+
+### 실행 방법
+* Docker Desktop 최소 3.4 이상 설치 필요
+* JDK 17 이상 권장
+
+```bash
+ ./gradlew bootRun --args="--spring.profiles.active=local"
+```
