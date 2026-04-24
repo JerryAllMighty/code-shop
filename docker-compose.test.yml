@@ -1,0 +1,10 @@
+services:
+  mysql-test-db:
+    image: 'mysql:8.0'
+    environment:
+      - 'MYSQL_DATABASE=code_shop_test_db'
+      - 'MYSQL_PASSWORD=password'
+      - 'MYSQL_ROOT_PASSWORD=root_password'
+      - 'MYSQL_USER=user'
+    ports:
+      - '3307:3306'
