@@ -12,11 +12,10 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Transactional
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 class MemberServiceImplTest {
 
     @Autowired
