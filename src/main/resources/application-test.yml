@@ -6,11 +6,11 @@ server:
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: test
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -19,4 +19,7 @@ spring:
   docker:
     compose:
       enabled: true
-      file: docker-compose.yml
+      file: docker-compose.test.yml
+      skip:
+        in-tests: false
+
