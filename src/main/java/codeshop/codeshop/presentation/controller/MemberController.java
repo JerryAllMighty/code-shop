@@ -2,6 +2,8 @@ package codeshop.codeshop.presentation.controller;
 
 import codeshop.codeshop.application.MemberService;
 import codeshop.codeshop.presentation.dto.SignUpRequestDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/members")
+@Tag(name = "", description = "")
 public class MemberController {
     private final MemberService memberService;
 
@@ -19,6 +22,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    @Operation(summary = "회원 가입", description = "새로운 회원을 생성한다")
     @PostMapping("/sign-up")
     public ResponseEntity<HttpStatus> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
         memberService.signUp(signUpRequestDto);
