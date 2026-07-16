@@ -3,7 +3,6 @@ package codeshop.codeshop.application;
 import codeshop.codeshop.domain.entity.Member;
 import codeshop.codeshop.infra.MemberRepository;
 import codeshop.codeshop.presentation.dto.SignUpRequestDto;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
         String password = signUpRequestDto.getPassword();
         Member member = Member.createForSignUp(email, passwordEncoder.encode(password));
+        //TODO : save는 왜 자바 컴파일러가 인식을 하고, 다른 find 함수는 왜쨰서 인식 못하는지?
         return memberRepository.save(member);
     }
 
@@ -36,4 +36,16 @@ public class MemberServiceImpl implements MemberService {
                     throw new DuplicateKeyException("이미 사용 중인 이메일입니다");
                 });
     }
+
+    @Override
+    public Optional<Member> findMember(String email, String password) {
+        return memberRepository.findByEmailAndPassword(email, passwordEncoder.encode(password));
+//        //TODO : orElse와 orElseThrow가 차이가 있을지?
+//        //TODO : 예외처리 어디에다가 두는게 좋을지?
+//        //TODO : 예외 따로 뺴서 관리해야함
+//        //TODO : Optional.of로 감싸야하는 이유가 있는지? find 함수도 optional 리턴이 아닌지?
+//        return Optional.of(memberRepository.findByEmailAndPassword(email, passwordEncoder.encode(password))
+//                .orElseThrow(RuntimeException::new));
+    }
 }
+
