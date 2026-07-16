@@ -2,6 +2,7 @@ package codeshop.codeshop.application;
 
 import codeshop.codeshop.domain.entity.Member;
 import codeshop.codeshop.infra.MemberRepository;
+import codeshop.codeshop.presentation.dto.MemberModifyRequestDto;
 import codeshop.codeshop.presentation.dto.SignUpRequestDto;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,6 +47,13 @@ public class MemberServiceImpl implements MemberService {
 //        //TODO : Optional.of로 감싸야하는 이유가 있는지? find 함수도 optional 리턴이 아닌지?
 //        return Optional.of(memberRepository.findByEmailAndPassword(email, passwordEncoder.encode(password))
 //                .orElseThrow(RuntimeException::new));
+    }
+
+    @Override
+    public Member modifyProfile(MemberModifyRequestDto memberModifyRequestDto) {
+        Member member = Member.createForUpdateProfile(memberModifyRequestDto);
+        //TODO : 네이밍 더 고민해보기
+        return memberRepository.updateProfile(member);
     }
 }
 
