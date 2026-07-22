@@ -24,7 +24,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         QProduct product = QProduct.product;
         return queryFactory.selectFrom(product)
                 .where(
-                        product.name.eq(productSearchCondition.getProductName())
+                    product.name.like(productSearchCondition.getProductName())
                 ).fetch();
     }
 }
