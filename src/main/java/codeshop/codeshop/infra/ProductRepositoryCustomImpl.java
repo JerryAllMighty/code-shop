@@ -25,6 +25,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return queryFactory.selectFrom(product)
                 .where(
                     product.name.like(productSearchCondition.getProductName())
+                        // TODO : N + 1 문제 방지를 위한거라면 왜 그런지?
                 ).fetch();
     }
 }
