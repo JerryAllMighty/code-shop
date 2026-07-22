@@ -19,9 +19,17 @@ public class Product {
 
     private long quantity;
 
-    private boolean isSaleAvailable;
+    //TODO : Boolean이랑 또 뭐가 다를지?
+    private boolean isOnSale;
 
-    protected Product(){};
+    public static boolean isPurchasable(Product product) {
+        long quantity = product.getQuantity();
+        boolean isOnSale = product.isOnSale();
+        return quantity > 0 && isOnSale;
+    }
+
+    protected Product() {
+    };
 
     public Long getId() {
         return id;
@@ -39,7 +47,7 @@ public class Product {
         return quantity;
     }
 
-    public boolean isSaleAvailable() {
-        return isSaleAvailable;
+    public boolean isOnSale() {
+        return isOnSale;
     }
 }
