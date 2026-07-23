@@ -18,5 +18,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
         //TODO : JPQL과 queryDsl은 어떤 기준으로 사용 판단을 세울 수 있을까?
         //TODO : @Param은 왜 쓰는걸까?
         //TODO : private 필드인데 jpql에서 바로 접근되는 이유는?
-    Member updateProfile(Member member);
+    void updateProfile(Member member);
 }

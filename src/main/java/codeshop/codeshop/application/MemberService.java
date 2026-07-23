@@ -11,6 +11,5 @@ public interface MemberService {
 
     Optional<Member> findMember(String email, String password);
 
-    // TODO : update의 경우 리턴 값은 어떤 판단 기준으로 하는게 좋을지?
-    Member modifyProfile(MemberModifyRequestDto memberModifyRequestDto);
+    void modifyProfile(MemberModifyRequestDto memberModifyRequestDto);
 }

@@ -50,10 +50,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member modifyProfile(MemberModifyRequestDto memberModifyRequestDto) {
+    public void modifyProfile(MemberModifyRequestDto memberModifyRequestDto) {
         Member member = Member.createForUpdateProfile(memberModifyRequestDto);
-        //TODO : 네이밍 더 고민해보기
-        return memberRepository.updateProfile(member);
+        memberRepository.updateProfile(member);
     }
 }
 
