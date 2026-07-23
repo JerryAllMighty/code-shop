@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/members")
@@ -31,9 +28,8 @@ public class MemberController {
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
-    //TODO : 회원 정보 관련 네이밍 더 고민해보기
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정한다")
-    @PostMapping("/modify-profile")
+    @PatchMapping("/me")
     public ResponseEntity<HttpStatus> modifyProfile(@Valid @RequestBody MemberModifyRequestDto memberModifyRequestDto) {
         //TODO : 이메일 포함해서 보내면 어떻게 되는지? 에러처리할지? 에러가 없다면 그냥 냅둘지?
         memberService.modifyProfile(memberModifyRequestDto);
