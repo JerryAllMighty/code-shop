@@ -2,7 +2,7 @@ package codeshop.codeshop.presentation.dto.response.cart;
 
 import java.util.List;
 
-public class MyCartResponseDto {
+public class GetMyCartResponseDto {
     public List<MyCartItemResponseDto> cartItemList;
 
     public static class MyCartItemResponseDto {
