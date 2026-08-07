@@ -5,13 +5,10 @@ import lombok.Getter;
 
 @Getter
 public class GetProductsResponseDto {
-    private String name;
-
-    private long price;
-
-    private long quantity;
-
-    private boolean isPurchasable;
+    private final String name;
+    private final long price;
+    private final long quantity;
+    private final boolean isPurchasable;
 
     public GetProductsResponseDto(String name, long price, long quantity, boolean isPurchasable) {
         this.name = name;
