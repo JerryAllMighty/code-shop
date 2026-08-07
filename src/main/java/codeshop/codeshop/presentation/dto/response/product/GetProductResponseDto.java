@@ -1,8 +1,9 @@
 package codeshop.codeshop.presentation.dto.response.product;
 
 import codeshop.codeshop.domain.entity.Product;
+import lombok.Getter;
 
-
+@Getter
 public class GetProductResponseDto {
     private String name;
 
@@ -25,21 +26,5 @@ public class GetProductResponseDto {
         long quantity = product.getQuantity();
         boolean isPurchasable = Product.isPurchasable(product);
         return new GetProductResponseDto(name, price, quantity, isPurchasable);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public boolean isPurchasable() {
-        return isPurchasable;
     }
 }

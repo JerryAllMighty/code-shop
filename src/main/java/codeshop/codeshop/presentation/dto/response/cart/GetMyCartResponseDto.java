@@ -1,7 +1,10 @@
 package codeshop.codeshop.presentation.dto.response.cart;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class GetMyCartResponseDto {
     public List<MyCartItemResponseDto> cartItemList;
 

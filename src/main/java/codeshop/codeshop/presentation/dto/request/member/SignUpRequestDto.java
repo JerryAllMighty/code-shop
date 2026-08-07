@@ -3,7 +3,9 @@ package codeshop.codeshop.presentation.dto.request.member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 
+@Getter
 public class SignUpRequestDto {
     @NotNull(message = "이메일은 필수 입력값입니다")
     @Email(message = "잘못된 이메일 형식입니다")
@@ -19,13 +21,5 @@ public class SignUpRequestDto {
     public SignUpRequestDto(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

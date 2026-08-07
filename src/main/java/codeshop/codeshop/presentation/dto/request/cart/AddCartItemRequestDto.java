@@ -1,7 +1,9 @@
 package codeshop.codeshop.presentation.dto.request.cart;
 
 import codeshop.codeshop.domain.entity.Cart;
+import lombok.Getter;
 
+@Getter
 public class AddCartItemRequestDto {
     public Cart cart;
 
