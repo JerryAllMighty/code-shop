@@ -1,6 +1,6 @@
 package codeshop.codeshop.presentation.dto.request.cart;
 
-public class CartItemModifyCartItemQuantityRequestDto {
+public class ModifyCartItemQuantityRequestDto {
 
     public Long productId;
 
