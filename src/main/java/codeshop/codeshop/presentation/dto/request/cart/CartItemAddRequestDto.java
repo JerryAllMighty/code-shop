@@ -1,4 +1,4 @@
-package codeshop.codeshop.presentation.dto.cart;
+package codeshop.codeshop.presentation.dto.request.cart;
 
 import codeshop.codeshop.domain.entity.Cart;
 

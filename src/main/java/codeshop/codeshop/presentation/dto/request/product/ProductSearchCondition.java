@@ -1,4 +1,4 @@
-package codeshop.codeshop.presentation.dto;
+package codeshop.codeshop.presentation.dto.request.product;
 
 public class ProductSearchCondition {
 

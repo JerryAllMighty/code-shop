@@ -1,4 +1,4 @@
-package codeshop.codeshop.presentation.dto.cart;
+package codeshop.codeshop.presentation.dto.response.cart;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package codeshop.codeshop.presentation.dto;
+package codeshop.codeshop.presentation.dto.request.member;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
