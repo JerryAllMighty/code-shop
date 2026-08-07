@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,25 +31,5 @@ public class Product {
     }
 
     protected Product() {
-    };
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public boolean isOnSale() {
-        return isOnSale;
     }
 }

@@ -1,11 +1,13 @@
 package codeshop.codeshop.domain.entity;
 
-import codeshop.codeshop.presentation.dto.MemberModifyRequestDto;
+import codeshop.codeshop.presentation.dto.member.MemberModifyRequestDto;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @Entity
+@Getter
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,18 +38,6 @@ public class Member {
         //TODO : dto를 레포지토리에 넘기는 방법은 어떤지?
         String encryptedPassword = memberModifyRequestDto.getPassword();
         return new Member(encryptedPassword);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override

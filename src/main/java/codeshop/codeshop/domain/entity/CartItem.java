@@ -1,8 +1,10 @@
 package codeshop.codeshop.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,24 +23,4 @@ public class CartItem {
     private boolean isOnSale;
 
     protected CartItem(){}
-
-    public Long getId() {
-        return id;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public boolean isOnSale() {
-        return isOnSale;
-    }
 }

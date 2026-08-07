@@ -1,11 +1,13 @@
 package codeshop.codeshop.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +24,5 @@ public class Cart {
     private List<CartItem> cartItemList = new ArrayList<>();
 
     protected Cart() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public List<CartItem> getCartItemList() {
-        return cartItemList;
     }
 }
