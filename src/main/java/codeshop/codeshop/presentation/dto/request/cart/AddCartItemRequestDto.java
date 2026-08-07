@@ -2,7 +2,7 @@ package codeshop.codeshop.presentation.dto.request.cart;
 
 import codeshop.codeshop.domain.entity.Cart;
 
-public class CartItemAddRequestDto {
+public class AddCartItemRequestDto {
     public Cart cart;
 
     //TODO : Product 엔티티 자체를 관계 맺는 것과 비교해보기

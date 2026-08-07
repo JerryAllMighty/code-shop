@@ -3,8 +3,7 @@ package codeshop.codeshop.presentation.dto.response.product;
 import codeshop.codeshop.domain.entity.Product;
 
 
-//TODO : dto 네이밍 더 좋은 건 없을까?
-public class ProductResponseDto {
+public class GetProductResponseDto {
     private String name;
 
     private long price;
@@ -13,19 +12,19 @@ public class ProductResponseDto {
 
     private boolean isPurchasable;
 
-    public ProductResponseDto(String name, long price, long quantity, boolean isPurchasable) {
+    public GetProductResponseDto(String name, long price, long quantity, boolean isPurchasable) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.isPurchasable = isPurchasable;
     }
 
-    public static ProductResponseDto from(Product product) {
+    public static GetProductResponseDto from(Product product) {
         String name = product.getName();
         long price = product.getPrice();
         long quantity = product.getQuantity();
         boolean isPurchasable = Product.isPurchasable(product);
-        return new ProductResponseDto(name, price, quantity, isPurchasable);
+        return new GetProductResponseDto(name, price, quantity, isPurchasable);
     }
 
     public String getName() {
