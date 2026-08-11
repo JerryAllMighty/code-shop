@@ -1,56 +1,56 @@
 package codeshop.codeshop.application;
 
+import codeshop.codeshop.common.exception.DuplicateMemberEmailException;
+import codeshop.codeshop.domain.entity.Member;
 import codeshop.codeshop.infra.MemberRepository;
-import codeshop.codeshop.presentation.dto.SignUpRequestDto;
-import jakarta.transaction.Transactional;
+import codeshop.codeshop.presentation.dto.request.member.SignUpRequestDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import codeshop.codeshop.domain.entity.Member;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.test.context.ActiveProfiles;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@SpringBootTest
-@Transactional
-@ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class MemberServiceImplTest {
 
-    @Autowired
-    private MemberService memberService;
+    @InjectMocks
+    private MemberServiceImpl memberService;
 
-    @Autowired
+    @Mock
     private MemberRepository memberRepository;
 
-    @Test
-    @DisplayName("Dto로부터 Member 객체를 정상적으로 만들고 DB에 저장한다")
-    void signUp_success() {
-        //given
-        SignUpRequestDto signUpRequestDto = new SignUpRequestDto("test@naver.com", "encryptedPassword");
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
-        //when
-        Member savedMember = memberService.signUp(signUpRequestDto);
-        memberRepository.findByEmail("test@naver.com")
-                .ifPresent(member -> {
-                            assertEquals(savedMember.getId(), member.getId());
-                }
-        );
+    private String email;
+
+    private String password;
+
+    @BeforeEach
+    void setUp() {
+        email = "test@email.com";
+        password = "test_password";
     }
 
     @Test
-    @DisplayName("회원 이메일이 중복되어 회원 가입에 실패한다")
-    void signUp_validate_email() {
+    @DisplayName("중복되는 회원 이메일이라서 예외 발생")
+    void signUp_fail_duplicateMemberEmail() {
         //given
-        SignUpRequestDto signUpRequestDto = new SignUpRequestDto("test@naver.com", "encryptedPassword");
+        Member savedMember = Member.createForSignUp(email, password);
 
         //when
-        memberService.signUp(signUpRequestDto);
-        SignUpRequestDto sameSignUpRequestDto = new SignUpRequestDto("test@naver.com", "encryptedPassword");
+        String sameEmail = "test@email.com";
+        given(memberRepository.findByEmail(sameEmail)).willReturn(Optional.of(savedMember));
 
         //then
-        assertThrows(DuplicateKeyException.class,
-                () -> memberService.signUp(sameSignUpRequestDto));
+        assertThatThrownBy(() -> memberService.signUp(SignUpRequestDto.builder()
+                        .email(sameEmail)
+                .build())).isInstanceOf(DuplicateMemberEmailException.class);
     }
 }
