@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto) {
         String email = signUpRequestDto.getEmail();
         memberRepository.findByEmail(email)
@@ -52,6 +53,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public ModifyProfileResponseDto modifyProfile(ModifyProfileRequestDto modifyProfileRequestDto) {
         Member member = Member.createForUpdateProfile(modifyProfileRequestDto);
         memberRepository.updateProfile(member);
