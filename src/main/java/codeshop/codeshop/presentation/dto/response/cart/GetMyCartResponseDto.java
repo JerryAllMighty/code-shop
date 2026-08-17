@@ -1,24 +1,17 @@
 package codeshop.codeshop.presentation.dto.response.cart;
 
-import lombok.Getter;
 
 import java.util.List;
 
-@Getter
-public class GetMyCartResponseDto {
-    public List<MyCartItemResponseDto> cartItemList;
+public record GetMyCartResponseDto(
+        List<MyCartItemResponseDto> cartItemList
+) {
+    record MyCartItemResponseDto(
+            Long productId,
 
-    public static class MyCartItemResponseDto {
-        public Long productId;
+            Integer quantity,
 
-        public int quantity;
-
-        public boolean isPurchasable;
-
-        public MyCartItemResponseDto(Long productId, int quantity, boolean isPurchasable) {
-            this.productId = productId;
-            this.quantity = quantity;
-            this.isPurchasable = isPurchasable;
-        }
+            Boolean isPurchasable
+    ) {
     }
 }
