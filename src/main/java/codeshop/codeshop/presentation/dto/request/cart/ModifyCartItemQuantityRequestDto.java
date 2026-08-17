@@ -1,11 +1,7 @@
 package codeshop.codeshop.presentation.dto.request.cart;
 
-import lombok.Getter;
-
-@Getter
-public class ModifyCartItemQuantityRequestDto {
-
-    public Long productId;
-
-    public int quantity;
+public record ModifyCartItemQuantityRequestDto(
+        Long productId,
+        Integer quantity
+) {
 }
