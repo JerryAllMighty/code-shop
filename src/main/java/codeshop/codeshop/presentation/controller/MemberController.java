@@ -30,7 +30,7 @@ public class MemberController {
     public ResponseEntity<SignUpResponseDto> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
         SignUpResponseDto signUpResponseDto = memberService.signUp(signUpRequestDto);
         return ResponseEntity.
-                created(URI.create("" + signUpResponseDto.getMemberId()))
+                created(URI.create("/api/v1/members/" + signUpResponseDto.memberId()))
                 .body(signUpResponseDto);
     }
 
