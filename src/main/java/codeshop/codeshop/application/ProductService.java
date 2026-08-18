@@ -1,13 +1,10 @@
 package codeshop.codeshop.application;
 
-import codeshop.codeshop.presentation.dto.ProductResponseDto;
-import codeshop.codeshop.presentation.dto.ProductSearchCondition;
-import codeshop.codeshop.presentation.dto.ProductSearchListResponseDto;
-
-import java.util.List;
+import codeshop.codeshop.presentation.dto.response.product.GetProductResponseDto;
+import codeshop.codeshop.presentation.dto.request.product.SearchProductCondition;
+import codeshop.codeshop.presentation.dto.response.product.SearchProductResponseDto;
 
 public interface ProductService {
-    List<ProductSearchListResponseDto> getProducts(ProductSearchCondition productSearchCondition);
-
-    ProductResponseDto getProduct(Long id);
+    SearchProductResponseDto searchProducts(SearchProductCondition searchProductCondition);
+    GetProductResponseDto getProduct(Long id);
 }
