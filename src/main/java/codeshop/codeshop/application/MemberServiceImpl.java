@@ -27,29 +27,23 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto) {
-        String email = signUpRequestDto.getEmail();
+        String email = signUpRequestDto.email();
         memberRepository.findByEmail(email)
                 .ifPresent(member -> {
                     throw new DuplicateMemberEmailException();
                 });
 
-        String password = signUpRequestDto.getPassword();
+        String password = signUpRequestDto.password();
         //TODO : save는 왜 자바 컴파일러가 인식을 하고, 다른 find 함수는 왜쨰서 인식 못하는지?
         Member savedMember = memberRepository.save(Member.createForSignUp(email, passwordEncoder.encode(password)));
-        return SignUpResponseDto.builder()
-                .memberId(savedMember.getId())
-                .memberEmail(savedMember.getEmail())
-                .build();
+        return new SignUpResponseDto(
+                savedMember.getId(), savedMember.getEmail()
+        );
     }
 
     @Override
     public Optional<Member> findMember(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, passwordEncoder.encode(password));
-//        //TODO : orElse와 orElseThrow가 차이가 있을지?
-//        //TODO : 예외처리 어디에다가 두는게 좋을지?
-//        //TODO : Optional.of로 감싸야하는 이유가 있는지? find 함수도 optional 리턴이 아닌지?
-//        return Optional.of(memberRepository.findByEmailAndPassword(email, passwordEncoder.encode(password))
-//                .orElseThrow(RuntimeException::new));
     }
 
     @Override
@@ -57,10 +51,9 @@ public class MemberServiceImpl implements MemberService {
     public ModifyProfileResponseDto modifyProfile(ModifyProfileRequestDto modifyProfileRequestDto) {
         Member member = Member.createForUpdateProfile(modifyProfileRequestDto);
         memberRepository.updateProfile(member);
-        return ModifyProfileResponseDto.builder()
-                .email(member.getEmail())
-                .password(member.getPassword())
-                .build();
+        return new ModifyProfileResponseDto(
+                member.getEmail(), member.getPassword()
+        );
     }
 }
 
