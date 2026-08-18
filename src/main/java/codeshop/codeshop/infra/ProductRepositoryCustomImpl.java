@@ -1,16 +1,24 @@
 package codeshop.codeshop.infra;
 
 import codeshop.codeshop.domain.entity.Product;
-import codeshop.codeshop.domain.entity.QProduct;
-import codeshop.codeshop.presentation.dto.ProductSearchCondition;
+import codeshop.codeshop.presentation.dto.request.product.SearchProductCondition;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+import static codeshop.codeshop.domain.entity.QProduct.*;
+
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
-    //TODO : JPAQueryFactory vs JPAQuery
     private final JPAQueryFactory queryFactory;
 
     public ProductRepositoryCustomImpl(EntityManager em) {
@@ -18,14 +26,30 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<Product> findProductsBySearchCondition(ProductSearchCondition productSearchCondition) {
-        //TODO : DTO로 바로 리턴하는 것과 무슨 차이인지
-        // TODO : 공식 문서랑 내용이 다르니 알아본다
-        QProduct product = QProduct.product;
-        return queryFactory.selectFrom(product)
+    public Page<Product> findProductsBySearchCondition(SearchProductCondition searchProductCondition, Pageable pageable) {
+        List<Product> content =
+                queryFactory.selectFrom(product)
+                .where(nameLike(searchProductCondition.productName()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(order(pageable.getSort()))
+                .fetch();
+
+        JPAQuery<Long> countQuery =
+                queryFactory.select(product.count())
+                .from(product)
                 .where(
-                    product.name.like(productSearchCondition.getProductName())
-                        // TODO : N + 1 문제 방지를 위한거라면 왜 그런지?
-                ).fetch();
+                        nameLike(searchProductCondition.productName())
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    private BooleanExpression nameLike(String name) {
+        return StringUtils.hasText(name) ? product.name.like(name) : null;
+    }
+
+    private OrderSpecifier<String> order(Sort order) {
+        return order.equals(Sort.Direction.ASC) ? product.name.asc() : product.name.desc();
     }
 }
