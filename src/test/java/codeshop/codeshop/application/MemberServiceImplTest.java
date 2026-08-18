@@ -49,8 +49,7 @@ class MemberServiceImplTest {
         given(memberRepository.findByEmail(sameEmail)).willReturn(Optional.of(savedMember));
 
         //then
-        assertThatThrownBy(() -> memberService.signUp(SignUpRequestDto.builder()
-                        .email(sameEmail)
-                .build())).isInstanceOf(DuplicateMemberEmailException.class);
+        assertThatThrownBy(() -> memberService.signUp(
+                new SignUpRequestDto(sameEmail, "temp_password"))).isInstanceOf(DuplicateMemberEmailException.class);
     }
 }
