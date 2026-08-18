@@ -4,10 +4,9 @@ import codeshop.codeshop.application.ProductService;
 import codeshop.codeshop.presentation.dto.response.product.GetProductResponseDto;
 import codeshop.codeshop.presentation.dto.request.product.SearchProductCondition;
 import codeshop.codeshop.presentation.dto.response.product.SearchProductResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -20,8 +19,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SearchProductResponseDto>> searchProduct(@ModelAttribute SearchProductCondition searchProductCondition) {
-        return ResponseEntity.ok(productService.getProducts(searchProductCondition));
+    public ResponseEntity<SearchProductResponseDto> searchProducts(@Valid @ModelAttribute SearchProductCondition searchProductCondition) {
+        return ResponseEntity.ok(
+                productService.searchProducts(searchProductCondition)
+        );
     }
 
     @GetMapping("/{id}")
